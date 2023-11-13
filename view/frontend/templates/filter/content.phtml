@@ -1,0 +1,71 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$helper = $this->helper('Lof\SearchSeller\Helper\Data');
+$countries = $helper->getCountries();
+$search = $this->getRequest()->getParam('q');
+$countryId = $this->getRequest()->getParam('country') ?? null;
+$ct = $this->getRequest()->getParam('ct') ?? null;
+$pc = $this->getRequest()->getParam('pc') ?? null;
+?>
+<div id="tab-filters-content">
+    <form action="<?= $block->getUrl('seller/result') ?>" class="form-seller-filters" method="post">
+        <div class="row-input">
+            <div class="col">
+                <label for="seller-country" class="admin__form-field-label">Country</label>
+                <select name="country_id" id="seller-country">
+                    <?php if ($countries): ?>
+                        <?php foreach ($countries as $country): ?>
+                            <option value="<?=$block->escapeHtml($country['value'])?>" <?= $country['value'] == $countryId ? 'selected' : ''?> ><?=$block->escapeHtml($country['label'])?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col">
+                <label for="seller-filter-city" class="admin__form-field-label">City</label>
+                <input type="text" id="seller-filter-city" name="city" value="<?=$ct?>">
+            </div>
+            <div class="col">
+                <label for="seller-filter-postcode" class="admin__form-field-label">Postcode</label>
+                <input type="text" id="seller-filter-postcode" name="postcode" value="<?=$pc?>">
+            </div>
+        </div>
+        <div class="actions">
+            <span class="btn-seller-filters btn btn-seller-cancel"><?= $block->escapeHtml('Cancel')?></span>
+            <button><?= $block->escapeHtml('Apply Filters')?></button>
+        </div>
+    </form>
+</div>
+<script>
+    require(["jquery"], function ($) {
+        "use strict";
+        $(document).ready(function (){
+            $('.btn-seller-filters').click(function (){
+                $('#tab-filters-content').slideToggle();
+            });
+
+            $('.form-seller-filters').submit(function (e){
+                e.preventDefault();
+                let link = $(this).attr('action')+"?q=" + "<?=$search?>";
+                let countryId = $('#seller-country').val();
+                let city = $('#seller-filter-city').val();
+                let postcode = $('#seller-filter-postcode').val();
+                if (countryId){
+                    link += '&country=' + countryId;
+                }
+                if (city){
+                    link += '&ct=' + city;
+                }
+                if (postcode){
+                    link += '&pc=' + postcode;
+                }
+
+                window.location = link;
+
+            })
+        });
+    });
+
+</script>
+

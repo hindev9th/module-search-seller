@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="content">
+            <container name="box.header.seller.list" htmlTag="div" htmlClass="box-header-seller-list" before="-">
+                <block name="seller.form.search" class="Magento\Framework\View\Element\Template" template="Lof_SearchSeller::form/search.phtml"/>
+                <block name="seller.filter.tab" class="Magento\Framework\View\Element\Template" template="Lof_SearchSeller::filter/tab.phtml"/>
+                <block name="seller.order" class="Magento\Framework\View\Element\Template" template="Lof_SearchSeller::form/order.phtml"/>
+            </container>
+            <container name="box.seller.filter.tab.content" htmlTag="div" htmlClass="seller-filter-tab-content">
+                <block name="filter.tab.content" class="Magento\Framework\View\Element\Template" template="Lof_SearchSeller::filter/content.phtml"/>
+            </container>
+            <block name="seller.result.index" class="Lof\SearchSeller\Block\Result\Index" template="Lof_SearchSeller::view/index.phtml"/>
+		</referenceContainer>
+	</body>
+</page>

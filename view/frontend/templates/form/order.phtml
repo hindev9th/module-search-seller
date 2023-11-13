@@ -1,0 +1,27 @@
+<?php
+$orderBy = $this->getRequest()->getParam('order_by');
+$orderType = $this->getRequest()->getParam('order_type') ?? 'asc';
+$orderTypeTemp = ($orderType == 'asc' ? 'desc' : 'asc');
+$helper = $this->helper('Lof\SearchSeller\Helper\Data');
+?>
+<div class="toolbar-sorter seller-order">
+    <label class="sorter-label" for="sorter">Sort By</label>
+    <select id="sorter" data-role="sorter" class="sorter-options">
+        <option value="<?=$helper->getOrderUrl('name')?>" <?= $orderBy == 'name' ? 'selected' : '' ?> >Seller Name</option>
+        <option value="<?=$helper->getOrderUrl('creation_time')?>" <?= $orderBy == 'creation_time' ? 'selected' : '' ?> > Seller latest</option>
+    </select>
+    <a title="Set Ascending Direction" href="<?= $helper->getOrderTypeUrl($orderTypeTemp) ?>"
+       class="action sorter-action <?= 'sort-' . $orderTypeTemp ?>"
+       data-role="direction-switcher"
+       data-value="<?= $orderType ?>">
+        <span>Set Ascending Direction</span>
+    </a>
+</div>
+<script>
+    require(["jquery"], function ($) {
+        "use strict";
+        $('.seller-order #sorter').change(function () {
+            window.location = $(this).val();
+        })
+    });
+</script>

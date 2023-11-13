@@ -1,0 +1,137 @@
+<?php
+/** @var \Lof\SearchSeller\Block\Result\Index $block */
+$sellers = $block->getSellers();
+?>
+<?php if ($sellers->count() > 0) : ?>
+    <div class="sellerlist">
+        <div class="block-content">
+            <div class="row">
+                <?php foreach ($sellers as $seller): ?>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        <div class="seller-item">
+                            <div class="seller-image">
+                                <a href="<?= $block->escapeUrl($seller->getUrl()) ?>" title="<?= $seller->getName() ?>">
+                                    <img src="<?= $block->escapeUrl($seller->getThumbnailUrl()) ?>">
+                                </a>
+                            </div>
+                            <div class="seller-name">
+                                <a href="<?= $block->escapeUrl($seller->getUrl()) ?>" title="<?= $seller->getName() ?>">
+                                    <?= $block->escapeHtml($seller->getName()); ?>                               </a>
+                            </div>
+                            <?php if ($seller->getVerifyStatus() == '1'): ?>
+                                <div class="seller-verify">
+                                    <i class="mkpl-verify"></i><span><?= $block->escapeHtml(__('Verified')) ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="mkpl-review">
+                                <div class="review-average-info">
+                                    <div class="average-rating">
+                                        <div class="ratings">
+                                            <div class="rating-box">
+                                                <div class="rating" style="width: 0%;"></div>
+                                            </div>
+                                            <div class="rating-links">
+                                                <?php $countRate = $block->getCountRating($seller->getData('seller_id')); ?>
+                                                <a class="lof-seller-rating"
+                                                   href="<?= $block->escapeUrl($seller->getUrl()) ?>">
+                                                    <?= $block->escapeHtml(__('%1 Rating(s)', $countRate)) ?> </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mkpl-sale seller-info">
+                                <i class="fa fa-shopping-cart"></i> <?= $block->getTotalSales($seller->getData('seller_id')) . " sales"; ?>
+                            </div>
+
+                            <div class="mkpl-address seller-info">
+                                <i class="fa fa-map-marker"></i> <?= $block->escapeHtml($seller->getAddress()) ?>
+                            </div>
+
+                            <div class="mkpl-socialnetworks">
+                                <ul class="list-social">
+                                    <?php if ($block->isAllowedSocial('facebook') && $seller->getData('fb_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="facebook"
+                                               href="<?= $block->escapeUrl($seller->getData('facebook_id')) ?>">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('google') && $seller->getData('gplus_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="google"
+                                               href="<?= $block->escapeUrl($seller->getData('gplus_id')) ?>">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('twitter') && $seller->getData('tw_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="twitter"
+                                               href="<?= $block->escapeUrl($seller->getData('twitter_id')) ?>">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('youtube') && $seller->getData('youtube_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="youtube"
+                                               href="<?= $block->escapeUrl($seller->getData('youtube_id')) ?>">
+                                                <i class="fa fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('linkedin') && $seller->getData('linkedin_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="linkedin"
+                                               href="<?= $block->escapeUrl($seller->getData('linkedin_id')) ?>">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('vimeo') && $seller->getData('vimeo_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="vimeo"
+                                               href="<?= $block->escapeUrl($seller->getData('vimeo_id')) ?>">
+                                                <i class="fa fa-vimeo"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('instagram') && $seller->getData('instagram_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="instagram"
+                                               href="<?= $block->escapeUrl($seller->getData('instagram_id')) ?>">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($block->isAllowedSocial('pinterest') && $seller->getData('pinterest_active')): ?>
+                                        <li class="icon-social">
+                                            <a class="pinterest"
+                                               href="<?= $block->escapeUrl($seller->getData('pinterest_id')) ?>">
+                                                <i class="fa fa-pinterest"></i>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+
+            <div class="seller-toolbar">
+                <?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <div class="message info empty">
+        <div><?= $block->escapeHtml(__('We can\'t find sellers matching the selection.')) ?></div>
+    </div>
+<?php endif; ?>
