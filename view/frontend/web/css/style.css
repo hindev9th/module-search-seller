@@ -58,11 +58,16 @@
 }
 .form-seller-filters .row-input{
     display: flex;
+    flex-wrap: wrap;
+    padding-bottom:20px;
 }
 .form-seller-filters .row-input .col{
     min-width: 200px;
     width: calc(100% / 3);
 }
-.form-seller-filters .row-input .col:not(:last-child){
-    padding-right: 15px;
+.form-seller-filters .row-input .col .input-group{
+    padding: 15px;
+}
+.form-seller-filters .actions{
+    padding: 0 15px;
 }

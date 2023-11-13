@@ -2,63 +2,106 @@
 /**
  * @var $block \Magento\Framework\View\Element\Template
  */
-$helper = $this->helper('Lof\SearchSeller\Helper\Data');
+$helper = $this->helper('Lofmp\SearchSeller\Helper\Data');
 $countries = $helper->getCountries();
 $search = $this->getRequest()->getParam('q');
 $countryId = $this->getRequest()->getParam('country') ?? null;
 $ct = $this->getRequest()->getParam('ct') ?? null;
 $pc = $this->getRequest()->getParam('pc') ?? null;
+
+$url = $this->getRequest()->getParam('url') ?? null;
+$ad = $this->getRequest()->getParam('ad') ?? null;
+$rg = $this->getRequest()->getParam('rg') ?? null;
 ?>
 <div id="tab-filters-content">
     <form action="<?= $block->getUrl('seller/result') ?>" class="form-seller-filters" method="post">
         <div class="row-input">
             <div class="col">
-                <label for="seller-country" class="admin__form-field-label">Country</label>
-                <select name="country_id" id="seller-country">
-                    <?php if ($countries): ?>
-                        <?php foreach ($countries as $country): ?>
-                            <option value="<?=$block->escapeHtml($country['value'])?>" <?= $country['value'] == $countryId ? 'selected' : ''?> ><?=$block->escapeHtml($country['label'])?></option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
+                <div class="input-group">
+                    <label for="seller-filter-url" class="admin__form-field-label">URL</label>
+                    <input type="text" id="seller-filter-url" name="url" value="<?= $url ?>">
+                </div>
             </div>
             <div class="col">
-                <label for="seller-filter-city" class="admin__form-field-label">City</label>
-                <input type="text" id="seller-filter-city" name="city" value="<?=$ct?>">
+                <div class="input-group">
+                    <label for="seller-filter-address" class="admin__form-field-label">Address</label>
+                    <input type="text" id="seller-filter-address" name="address" value="<?= $ad ?>">
+                </div>
             </div>
             <div class="col">
-                <label for="seller-filter-postcode" class="admin__form-field-label">Postcode</label>
-                <input type="text" id="seller-filter-postcode" name="postcode" value="<?=$pc?>">
+                <div class="input-group">
+                    <label for="seller-filter-region" class="admin__form-field-label">Region</label>
+                    <input type="text" id="seller-filter-region" name="region" value="<?= $rg ?>">
+                </div>
             </div>
+            <div class="col">
+                <div class="input-group">
+                    <label for="seller-country" class="admin__form-field-label">Country</label>
+                    <select name="country_id" id="seller-country">
+                        <?php if ($countries): ?>
+                            <?php foreach ($countries as $country): ?>
+                                <option
+                                    value="<?= $block->escapeHtml($country['value']) ?>" <?= $country['value'] == $countryId ? 'selected' : '' ?> ><?= $block->escapeHtml($country['label']) ?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <label for="seller-filter-city" class="admin__form-field-label">City</label>
+                    <input type="text" id="seller-filter-city" name="city" value="<?= $ct ?>">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <label for="seller-filter-postcode" class="admin__form-field-label">Postcode</label>
+                    <input type="text" id="seller-filter-postcode" name="postcode" value="<?= $pc ?>">
+                </div>
+            </div>
+
         </div>
         <div class="actions">
-            <span class="btn-seller-filters btn btn-seller-cancel"><?= $block->escapeHtml('Cancel')?></span>
-            <button><?= $block->escapeHtml('Apply Filters')?></button>
+            <span class="btn-seller-filters btn btn-seller-cancel"><?= $block->escapeHtml('Cancel') ?></span>
+            <button><?= $block->escapeHtml('Apply Filters') ?></button>
         </div>
     </form>
 </div>
 <script>
     require(["jquery"], function ($) {
         "use strict";
-        $(document).ready(function (){
-            $('.btn-seller-filters').click(function (){
+        $(document).ready(function () {
+            $('.btn-seller-filters').click(function () {
                 $('#tab-filters-content').slideToggle();
             });
 
-            $('.form-seller-filters').submit(function (e){
+            $('.form-seller-filters').submit(function (e) {
                 e.preventDefault();
-                let link = $(this).attr('action')+"?q=" + "<?=$search?>";
+                let link = $(this).attr('action') + "?q=" + "<?=$search?>";
                 let countryId = $('#seller-country').val();
                 let city = $('#seller-filter-city').val();
                 let postcode = $('#seller-filter-postcode').val();
-                if (countryId){
+
+                let url = $('#seller-filter-url').val();
+                let address = $('#seller-filter-address').val();
+                let region = $('#seller-filter-region').val();
+                if (countryId) {
                     link += '&country=' + countryId;
                 }
-                if (city){
+                if (city) {
                     link += '&ct=' + city;
                 }
-                if (postcode){
+                if (postcode) {
                     link += '&pc=' + postcode;
+                }
+                if (url) {
+                    link += '&url=' + url;
+                }
+                if (address) {
+                    link += '&ad=' + address;
+                }
+                if (region) {
+                    link += '&rg=' + region;
                 }
 
                 window.location = link;

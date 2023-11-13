@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Lof\SearchSeller\Controller\Result;
+namespace Lofmp\SearchSeller\Controller\Result;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Lof\SearchSeller\Helper;
+namespace Lofmp\SearchSeller\Helper;
 
 use Lof\MarketPlace\Block\Seller\Editprofile;
 use Magento\Framework\App\Helper\AbstractHelper;

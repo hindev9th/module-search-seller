@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Lof\SearchSeller\Block\Result;
+namespace Lofmp\SearchSeller\Block\Result;
 
 class Index extends \Magento\Framework\View\Element\Template
 {
@@ -34,7 +34,7 @@ class Index extends \Magento\Framework\View\Element\Template
         $this->sellerModel = $sellerModel;
         parent::__construct($context, $data);
         if (!$this->getRequest()->getParam('q')) {
-//            $this->response->setRedirect('/');
+            $this->response->setRedirect('/');
         }
     }
 
@@ -47,9 +47,13 @@ class Index extends \Magento\Framework\View\Element\Template
         $orderBy = $this->getRequest()->getParam('order_by') ?? 'name';
         $orderType = $this->getRequest()->getParam('order_type') ?? 'ASC';
         $searchKey = $this->getRequest()->getParam('q') ?? null;
+
         $countryId = $this->getRequest()->getParam('country') ?? null;
         $city = $this->getRequest()->getParam('ct') ?? null;
         $postcode = $this->getRequest()->getParam('pc') ?? null;
+        $url = $this->getRequest()->getParam('url') ?? null;
+        $address = $this->getRequest()->getParam('ad') ?? null;
+        $region = $this->getRequest()->getParam('rg') ?? null;
 
         if ($countryId) {
             $seller->addFieldToFilter('country_id', $countryId);
@@ -60,10 +64,9 @@ class Index extends \Magento\Framework\View\Element\Template
                 ['name','address', 'url_key', 'region','city','postcode'],
                 [
                     ['like' => "%$searchKey%"],
-                    ['like' => "%$searchKey%"],
-                    ['like' => "%$searchKey%"],
-                    ['like' => "%$searchKey%"],
-
+                    ['like' => "%$address%"],
+                    ['like' => "%$url%"],
+                    ['like' => "%$region%"],
                     ['like' => "%$city%"],
                     ['like' => "%$postcode%"],
                 ]
@@ -107,7 +110,7 @@ class Index extends \Magento\Framework\View\Element\Template
                 ]
             );
             $breadcrumbsBlock->addCrumb(
-                'lof_seachseller',
+                'lofmp_seachseller',
                 [
                     'label' => "Search results for: '{$this->getRequest()->getParam('q')}'",
                     'title' => "Search results for: '{$this->getRequest()->getParam('q')}'"

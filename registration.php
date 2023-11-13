@@ -5,5 +5,5 @@
  */
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Lof_SearchSeller', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Lofmp_SearchSeller', __DIR__);
 

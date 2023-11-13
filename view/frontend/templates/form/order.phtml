@@ -2,7 +2,7 @@
 $orderBy = $this->getRequest()->getParam('order_by');
 $orderType = $this->getRequest()->getParam('order_type') ?? 'asc';
 $orderTypeTemp = ($orderType == 'asc' ? 'desc' : 'asc');
-$helper = $this->helper('Lof\SearchSeller\Helper\Data');
+$helper = $this->helper('Lofmp\SearchSeller\Helper\Data');
 ?>
 <div class="toolbar-sorter seller-order">
     <label class="sorter-label" for="sorter">Sort By</label>

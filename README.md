@@ -1,6 +1,6 @@
-# Mage2 Module Lof ListSeller
+# Mage2 Module Lofmp SearchSeller
 
-    ``lof/module-listseller``
+    ``lofmp/module-searchseller``
 
  - [Main Functionalities](#markdown-header-main-functionalities)
  - [Installation](#markdown-header-installation)
@@ -17,8 +17,8 @@ Show list sellers
 
 ### Type 1: Zip file
 
- - Unzip the zip file in `app/code/Lof`
- - Enable the module by running `php bin/magento module:enable Lof_ListSeller`
+ - Unzip the zip file in `app/code/Lofmp`
+ - Enable the module by running `php bin/magento module:enable Lofmp_SearchSeller`
  - Apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
@@ -29,8 +29,8 @@ Show list sellers
     - public repository `packagist.org`
     - public github repository as vcs
  - Add the composer repository to the configuration by running `composer config repositories.repo.magento.com composer https://repo.magento.com/`
- - Install the module composer by running `composer require lof/module-listseller`
- - enable the module by running `php bin/magento module:enable Lof_ListSeller`
+ - Install the module composer by running `composer require Lofmp/module-searchseller`
+ - enable the module by running `php bin/magento module:enable Lofmp_SearchSeller`
  - apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
@@ -43,7 +43,7 @@ Show list sellers
 ## Specifications
 
  - Controller
-	- frontend > seller/index/index
+	- frontend > seller/result/index
 
 
 ## Attributes
